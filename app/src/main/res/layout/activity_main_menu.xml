@@ -6,13 +6,53 @@
     android:layout_height="match_parent"
     tools:context="com.morgan_lab4.MainMenuActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Game"
+                android:id="@+id/btnNewGame"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Scoreboard"
+                android:id="@+id/btnViewScoreboard"
+                app:layout_constraintTop_toBottomOf="@+id/btnNewGame"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Player 1"
+                android:id="@+id/btnSelectPlayerOne"
+                app:layout_constraintTop_toBottomOf="@+id/btnViewScoreboard"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Player 2"
+                android:id="@+id/btnSelectPlayerTwo"
+                app:layout_constraintTop_toBottomOf="@+id/btnSelectPlayerOne"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Player"
+                android:id="@+id/btnAddPlayer"
+                app:layout_constraintTop_toBottomOf="@+id/btnSelectPlayerTwo"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+
+
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

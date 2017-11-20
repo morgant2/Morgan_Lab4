@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".GameEmulatorActivity" />
         <activity android:name=".ScoreboardActivity" />
-        <activity android:name=".AddPlayerActivity"></activity>
+        <activity android:name=".AddPlayerActivity" />
+        <activity android:name=".PlayerActivity"></activity>
     </application>
 
 </manifest>
