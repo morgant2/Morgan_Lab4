@@ -21,7 +21,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
         getButtons();
         setButtonEvents();
-
     }
 
     private void setButtonEvents() {
@@ -75,7 +74,5 @@ public class MainMenuActivity extends AppCompatActivity {
         btnSelectPlayerOne = (Button) findViewById(R.id.btnSelectPlayerOne);
         btnSelectPlayerTwo = (Button) findViewById(R.id.btnSelectPlayerTwo);
         btnAddPlayer = (Button) findViewById(R.id.btnAddPlayer);
-
-
     }
 }
