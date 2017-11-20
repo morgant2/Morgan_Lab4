@@ -45,7 +45,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenuActivity.this, PlayerActivity.class);
-                intent.putExtra(getString(R.string.selected_player_key), getString(R.string.player_one));
+                intent.putExtra(getString(R.string.selected_player_key), true);
                 MainMenuActivity.this.startActivity(intent);
             }
         });
@@ -54,7 +54,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenuActivity.this, PlayerActivity.class);
-                intent.putExtra(getString(R.string.selected_player_key), getString(R.string.player_two));
+                intent.putExtra(getString(R.string.selected_player_key), false);
                 MainMenuActivity.this.startActivity(intent);
             }
         });

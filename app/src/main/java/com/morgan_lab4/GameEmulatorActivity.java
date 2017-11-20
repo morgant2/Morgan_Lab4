@@ -21,6 +21,12 @@ public class GameEmulatorActivity extends AppCompatActivity {
 
         getViews();
         setOnClickListeners();
+        setPlayerNames();
+    }
+
+    private void setPlayerNames() {
+        tvPlayerOneName.setText("John Doe");
+        tvPlayerTwoName.setText("Jane Doe");
     }
 
     private void setOnClickListeners() {

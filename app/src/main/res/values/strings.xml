@@ -3,4 +3,9 @@
     <string name="selected_player_key">SelectedPlayerKey</string>
     <string name="player_one">Player 1</string>
     <string name="player_two">Player 2</string>
+    <string name="name_field_name">name_field_name</string>
+    <string name="wins_field_name">wins_field_name</string>
+    <string name="losses_field_name">losses_field_name</string>
+    <string name="ties_field_name">ties_field_name</string>
+    <string name="person_id_field_name">_id</string>
 </resources>
