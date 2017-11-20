@@ -62,14 +62,14 @@ public class PersonDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertPerson(int person_id, String name, int wins, int losses, int ties) {
+    public void insertPerson(String name) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(context.getString(R.string.name_field_name), name);
-            contentValues.put(context.getString(R.string.wins_field_name), wins);
-            contentValues.put(context.getString(R.string.losses_field_name), losses);
-            contentValues.put(context.getString(R.string.ties_field_name), ties);
+            contentValues.put(context.getString(R.string.wins_field_name), 0);
+            contentValues.put(context.getString(R.string.losses_field_name), 0);
+            contentValues.put(context.getString(R.string.ties_field_name), 0);
 
             db.insert(DATABASE_TABLE, null, contentValues);
         } catch (SQLException e) {

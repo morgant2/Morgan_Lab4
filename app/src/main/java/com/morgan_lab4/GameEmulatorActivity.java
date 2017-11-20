@@ -13,6 +13,7 @@ public class GameEmulatorActivity extends AppCompatActivity {
     private Button btnPlayerOneWins;
     private Button btnPlayerTwoWins;
     private Button btnTie;
+    private PersonDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class GameEmulatorActivity extends AppCompatActivity {
         getViews();
         setOnClickListeners();
         setPlayerNames();
+        db = new PersonDB(getApplicationContext());
+
     }
 
     private void setPlayerNames() {

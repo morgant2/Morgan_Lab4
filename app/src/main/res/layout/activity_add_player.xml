@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.morgan_lab4.AddPlayerActivity">
 
+    <EditText
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/etAddPlayer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="Player Name"/>
+    <Button
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAddPlayer"
+        android:text="Add Player"
+        android:id="@+id/btnAddNewPlayer"/>
+
 </android.support.constraint.ConstraintLayout>

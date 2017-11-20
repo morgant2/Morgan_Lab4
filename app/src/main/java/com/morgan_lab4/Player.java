@@ -1,5 +1,7 @@
 package com.morgan_lab4;
 
+import android.text.Editable;
+
 /**
  * Created by tmorgan2 on 11/20/2017.
  */
@@ -19,4 +21,5 @@ public class Player {
         this.Losses = losses;
         this.Ties = ties;
     }
+
 }
