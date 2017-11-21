@@ -1,6 +1,8 @@
 package com.morgan_lab4;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +20,8 @@ public class PlayerActivity extends AppCompatActivity {
     private boolean isFirstPlayer;
     private TextView tvSelectPlayer;
     private ArrayList<Player> players;
+    private int playerOneID;
+    private int playerTwoID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,9 @@ public class PlayerActivity extends AppCompatActivity {
         db = new PersonDB(getApplicationContext());
         lvSelectablePlayers = (ListView) findViewById(R.id.lvSelectablePlayers);
         tvSelectPlayer = (TextView) findViewById(R.id.tvSelectPlayer);
+
+        playerOneID = intent.getIntExtra(getString(R.string.player_one_selected), -1);
+        playerTwoID = intent.getIntExtra(getString(R.string.player_two_selected), -1);
 
         setListViewNames();
 
@@ -44,14 +51,15 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 int selectedPlayerID = players.get(i)._id;
+                String key = isFirstPlayer ? getString(R.string.player_one_selected) : getString(R.string.player_two_selected);
+
+                SharedPreferences sp = getSharedPreferences(getString(R.string.preferences), Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+
+                editor.putInt(key, selectedPlayerID);
+                editor.commit();
 
                 Intent intent = new Intent(PlayerActivity.this, MainMenuActivity.class);
-
-                if (isFirstPlayer)
-                    intent.putExtra(getString(R.string.player_one_selected), selectedPlayerID);
-                else
-                    intent.putExtra(getString(R.string.player_two_selected), selectedPlayerID);
-
                 PlayerActivity.this.startActivity(intent);
             }
         });

@@ -1,6 +1,8 @@
 package com.morgan_lab4;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,21 +15,13 @@ public class MainMenuActivity extends AppCompatActivity {
     private Button btnSelectPlayerOne;
     private Button btnSelectPlayerTwo;
     private Button btnAddPlayer;
-    private int playerOneID;
-    private int playerTwoID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        Intent intent = getIntent();
 
-        if(intent != null)
-        {
-            playerOneID = intent.getIntExtra(getString(R.string.player_one_selected), -1);
-            playerTwoID = intent.getIntExtra(getString(R.string.player_two_selected), -1);
-        }
 
         getButtons();
         setButtonEvents();
@@ -45,6 +39,10 @@ public class MainMenuActivity extends AppCompatActivity {
         btnViewScoreboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sp = getSharedPreferences(getString(R.string.preferences), Activity.MODE_PRIVATE);
+                int playerOneID = sp.getInt(getString(R.string.player_one_selected), -1);
+                int playerTwoID = sp.getInt(getString(R.string.player_two_selected), -1);
+
                 if(playerOneID >= 0 && playerTwoID >= 0)
                 {
                     Intent intent = new Intent(MainMenuActivity.this, ScoreboardActivity.class);

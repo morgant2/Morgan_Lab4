@@ -35,7 +35,7 @@ public class PersonDB extends SQLiteOpenHelper {
     private static String CREATE_DATABASE;
     private static final String DATABASE_NAME = "PERSONDB";
     private static final String DATABASE_TABLE = "Person";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private Context context = null;
     private SQLiteDatabase db;
 
@@ -80,7 +80,7 @@ public class PersonDB extends SQLiteOpenHelper {
         }
     }
 
-    public void updatePerson( int id, String fieldName, int value) {
+    public void updatePlayer( int id, String fieldName, int value) {
 
         try {
             db = this.getWritableDatabase();
@@ -95,11 +95,11 @@ public class PersonDB extends SQLiteOpenHelper {
 
     }
 
-
-    public int getStat(String personName, String fieldName)
+    public int getStat(int id, String fieldName)
     {
-        String query = "SELECT " + fieldName + " FROM " + DATABASE_TABLE + " WHERE " + context.getString(R.string.name_field_name) + " = " + personName;
+        String query = "SELECT " + fieldName + " FROM " + DATABASE_TABLE + " WHERE " + context.getString(R.string.person_id_field_name) + " = " + id;
         int value = -1;
+        db = getReadableDatabase();
 
         try {
             Cursor cursor = db.rawQuery(query, null);
@@ -153,7 +153,7 @@ public class PersonDB extends SQLiteOpenHelper {
         ArrayList<Player> players = new ArrayList<Player>();
         db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM " + DATABASE_TABLE;
+        String query = "SELECT * FROM " + DATABASE_TABLE + " ORDER BY " + context.getString(R.string.wins_field_name) + " DESC";
 
         try
         {
@@ -184,5 +184,54 @@ public class PersonDB extends SQLiteOpenHelper {
         int ties = cursor.getInt(cursor.getColumnIndex(context.getString(R.string.ties_field_name)));
 
         return new Player(_id, name, wins, losses, ties);
+    }
+
+    public Player getPlayerFromID(int id)
+    {
+        Player person = null;
+        String query = "SELECT * FROM " + DATABASE_TABLE + " WHERE " + context.getString(R.string.person_id_field_name) + " = " + id;
+        db = getReadableDatabase();
+
+        try {
+            Cursor cursor = db.rawQuery(query, null);
+
+            if (cursor.getCount() == 1) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        person = createPlayer(cursor);
+                    }
+                    while (cursor.moveToNext());
+                }
+            }
+
+            cursor.close();
+            db.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return person;
+    }
+
+    public void incrementStat(int id, String stat)
+    {
+        int i = getStat(id, stat);
+        i++;
+        updatePlayer(id, stat, i);
+    }
+
+    public String getAllPlayersStats()
+    {
+        ArrayList<Player> players = getAllPlayers();
+        String msg = "";
+
+        msg = String.format("%s\t\t%s\t%s\t%s\n","Players", "Wins", "Losses", "Ties");
+        for(Player player : players)
+        {
+            msg += String.format("%-10s\t\t%-10d\t%-10d\t%-10d\n", player.Name, player.Wins, player.Losses, player.Ties);
+        }
+
+
+        return msg;
     }
 }

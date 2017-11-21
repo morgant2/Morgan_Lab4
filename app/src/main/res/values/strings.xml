@@ -10,4 +10,5 @@
     <string name="person_id_field_name">_id</string>
     <string name="player_one_selected">player_one_selected</string>
     <string name="player_two_selected">player_two_selected</string>
+    <string name="preferences">shared_preferences</string>
 </resources>
