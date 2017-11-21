@@ -17,7 +17,7 @@
             <LinearLayout
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
-                android:orientation="Horizontal"
+                android:orientation="horizontal"
                 android:id="@+id/llPlayerOne"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent">
@@ -40,7 +40,7 @@
             <LinearLayout
                 android:layout_width="352dp"
                 android:layout_height="wrap_content"
-                android:orientation="Horizontal"
+                android:orientation="horizontal"
                 android:id="@+id/llPlayerTwo"
                 app:layout_constraintTop_toBottomOf="@+id/llPlayerOne"
                 app:layout_constraintLeft_toLeftOf="parent"

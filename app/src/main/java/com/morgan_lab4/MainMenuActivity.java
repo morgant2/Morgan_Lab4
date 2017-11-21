@@ -13,11 +13,21 @@ public class MainMenuActivity extends AppCompatActivity {
     private Button btnSelectPlayerOne;
     private Button btnSelectPlayerTwo;
     private Button btnAddPlayer;
+    private int playerOneID;
+    private int playerTwoID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        Intent intent = getIntent();
+
+        if(intent != null)
+        {
+            playerOneID = intent.getIntExtra(getString(R.string.player_one_selected), -1);
+            playerTwoID = intent.getIntExtra(getString(R.string.player_two_selected), -1);
+        }
 
         getButtons();
         setButtonEvents();
@@ -29,15 +39,32 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainMenuActivity.this, GameEmulatorActivity.class);
                 MainMenuActivity.this.startActivity(intent);
-
             }
         });
 
         btnViewScoreboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainMenuActivity.this, ScoreboardActivity.class);
-                MainMenuActivity.this.startActivity(intent);
+                if(playerOneID >= 0 && playerTwoID >= 0)
+                {
+                    Intent intent = new Intent(MainMenuActivity.this, ScoreboardActivity.class);
+                    intent.putExtra(getString(R.string.player_one_selected), playerOneID);
+                    intent.putExtra(getString(R.string.player_two_selected), playerTwoID);
+                    MainMenuActivity.this.startActivity(intent);
+                }
+                else if(playerOneID < 0)
+                {
+                    Intent intent = new Intent(MainMenuActivity.this, PlayerActivity.class);
+                    intent.putExtra(getString(R.string.selected_player_key), true);
+                    MainMenuActivity.this.startActivity(intent);
+                }
+                else
+                {
+                    Intent intent = new Intent(MainMenuActivity.this, PlayerActivity.class);
+                    intent.putExtra(getString(R.string.selected_player_key), false);
+                    MainMenuActivity.this.startActivity(intent);
+                }
+
             }
         });
 
@@ -62,7 +89,7 @@ public class MainMenuActivity extends AppCompatActivity {
         btnAddPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainMenuActivity.this, ScoreboardActivity.class);
+                Intent intent = new Intent(MainMenuActivity.this, AddPlayerActivity.class);
                 MainMenuActivity.this.startActivity(intent);
             }
         });

@@ -32,55 +32,58 @@ public class PersonDB extends SQLiteOpenHelper {
 //        public boolean isSelected;
 //    }
 
-    private static final String CREATE_DATABASE = "create table Person(" +
-            "_id integer primary key autoincrement," +
-            "name text not null" +
-            "wins integer not null" +
-            "losses integer not null" +
-            "ties integer not null" +
-            ");";
+    private static String CREATE_DATABASE;
     private static final String DATABASE_NAME = "PERSONDB";
-    private static final String DATABASE_TABLE = "TBLPERSON";
-    private static final int DATABASE_VERSION = 1;
-    private SQLiteDatabase db;
+    private static final String DATABASE_TABLE = "Person";
+    private static final int DATABASE_VERSION = 2;
     private Context context = null;
+    private SQLiteDatabase db;
 
     public PersonDB(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+
+        CREATE_DATABASE = "create table Person(" +
+                "_id integer primary key autoincrement," +
+                context.getString(R.string.name_field_name) + " text not null, " +
+                context.getString(R.string.wins_field_name) + " integer not null, " +
+                context.getString(R.string.losses_field_name) + " integer not null, " +
+                context.getString(R.string.ties_field_name) + " integer not null" +
+                ");";
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        this.db.execSQL(CREATE_DATABASE);
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_DATABASE);
+        this.db = db;
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
         onCreate(db);
     }
 
     public void insertPerson(String name) {
         try {
-            SQLiteDatabase db = this.getWritableDatabase();
+            db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(context.getString(R.string.name_field_name), name);
             contentValues.put(context.getString(R.string.wins_field_name), 0);
             contentValues.put(context.getString(R.string.losses_field_name), 0);
             contentValues.put(context.getString(R.string.ties_field_name), 0);
 
-            db.insert(DATABASE_TABLE, null, contentValues);
+            db.insertOrThrow(DATABASE_TABLE, null, contentValues);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void updatePerson(int id, String fieldName, int value) {
+    public void updatePerson( int id, String fieldName, int value) {
 
         try {
-            SQLiteDatabase db = this.getWritableDatabase();
+            db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(fieldName, value);
 
@@ -119,7 +122,7 @@ public class PersonDB extends SQLiteOpenHelper {
         return value;
     }
 
-    public Player getPlayerFromName(String personName)
+    public Player getPlayerFromName( String personName)
     {
         Player person = null;
         String query = "SELECT * FROM " + DATABASE_TABLE + " WHERE " + context.getString(R.string.name_field_name) + " = " + personName;
@@ -145,10 +148,10 @@ public class PersonDB extends SQLiteOpenHelper {
         return person;
     }
 
-    public ArrayList<Player> getAllPlayersName()
+    public ArrayList<Player> getAllPlayers()
     {
         ArrayList<Player> players = new ArrayList<Player>();
-        SQLiteDatabase db = this.getReadableDatabase();
+        db = this.getReadableDatabase();
 
         String query = "SELECT * FROM " + DATABASE_TABLE;
 
