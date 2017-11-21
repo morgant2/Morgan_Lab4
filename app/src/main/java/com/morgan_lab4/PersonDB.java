@@ -225,12 +225,11 @@ public class PersonDB extends SQLiteOpenHelper {
         ArrayList<Player> players = getAllPlayers();
         String msg = "";
 
-        msg = String.format("%s\t\t%s\t%s\t%s\n","Players", "Wins", "Losses", "Ties");
+        msg = String.format("%-15s%-10s%-10s%-10s%n","Players", "Wins", "Losses", "Ties");
         for(Player player : players)
         {
-            msg += String.format("%-10s\t\t%-10d\t%-10d\t%-10d\n", player.Name, player.Wins, player.Losses, player.Ties);
+            msg += String.format("%-15s%-10d%-10d%-10d%n", player.Name, player.Wins, player.Losses, player.Ties);
         }
-
 
         return msg;
     }
