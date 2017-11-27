@@ -68,6 +68,7 @@ public class GameEmulatorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 db.incrementStat(playerOne._id, getString(R.string.wins_field_name));
                 db.incrementStat(playerTwo._id, getString(R.string.losses_field_name));
+                viewScoreboard();
             }
         });
 
@@ -76,6 +77,7 @@ public class GameEmulatorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 db.incrementStat(playerTwo._id, getString(R.string.wins_field_name));
                 db.incrementStat(playerOne._id, getString(R.string.losses_field_name));
+                viewScoreboard();
             }
         });
 
@@ -84,8 +86,15 @@ public class GameEmulatorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 db.incrementStat(playerTwo._id, getString(R.string.ties_field_name));
                 db.incrementStat(playerOne._id, getString(R.string.ties_field_name));
+                viewScoreboard();
             }
         });
+    }
+
+    private void viewScoreboard()
+    {
+        Intent intent = new Intent(GameEmulatorActivity.this, ScoreboardActivity.class);
+        GameEmulatorActivity.this.startActivity(intent);
     }
 
     private void getViews() {
